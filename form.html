@@ -1,0 +1,157 @@
+
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ฟอร์มบันทึกข้อมูลการซื้อและจ้าง</title>
+  <link href="https://fonts.googleapis.com/css2?family=Sarabun&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Sarabun', sans-serif;
+      background-color: #f4edff;
+      margin: 0;
+      padding: 0;
+      display: flex;
+    }
+    .sidebar {
+      width: 220px;
+      background-color: #5b2dc4;
+      color: white;
+      height: 100vh;
+      padding-top: 2rem;
+      position: fixed;
+    }
+    .sidebar a {
+      display: block;
+      padding: 15px 20px;
+      color: white;
+      text-decoration: none;
+      font-size: 1rem;
+    }
+    .sidebar a:hover {
+      background-color: #7c44ff;
+    }
+    .content {
+      margin-left: 220px;
+      padding: 2rem;
+      width: calc(100% - 220px);
+    }
+    .container {
+      max-width: 700px;
+      background: white;
+      padding: 2rem;
+      border-radius: 1rem;
+      margin: auto;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    }
+    img.logo {
+      height: 80px;
+      margin-bottom: 1rem;
+      display: block;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    h1 {
+      color: #5b2dc4;
+      text-align: center;
+    }
+    form {
+      text-align: left;
+    }
+    label {
+      display: block;
+      margin-top: 1rem;
+      margin-bottom: 0.25rem;
+      font-weight: bold;
+      color: #5b2dc4;
+    }
+    input, select, textarea {
+      width: 100%;
+      padding: 0.5rem;
+      border-radius: 0.5rem;
+      border: 1px solid #ccc;
+      font-size: 1rem;
+    }
+    button {
+      background-color: #7a3ee4;
+      color: white;
+      padding: 0.75rem 2rem;
+      border: none;
+      border-radius: 0.5rem;
+      margin-top: 1.5rem;
+      font-size: 1rem;
+      cursor: pointer;
+    }
+    select option {
+      font-family: 'Sarabun', sans-serif;
+    }
+    button:hover {
+      background-color: #652dc1;
+    }
+  </style>
+</head>
+<body>
+  <div class="sidebar">
+    <a href="index.html">🏠 หน้าหลัก</a>
+    <a href="form.html">📝 กรอกข้อมูล</a>
+    <a href="view.html">📄 ดูข้อมูลย้อนหลัง</a>
+  </div>
+
+  <div class="content">
+    <div class="container">
+      <img src="assets/logo-pea.png" alt="PEA Logo" class="logo" />
+      <h1>ฟอร์มบันทึกข้อมูลการซื้อและจ้าง</h1>
+      <form id="purchaseForm" onsubmit="event.preventDefault(); submitForm();">
+        <label for="date">วันที่</label>
+        <input type="date" id="date" name="date" required>
+
+        <label for="department">แผนก</label>
+        <select id="department" name="department" required>
+          <option value="">เลือกแผนก</option>
+          <option>ก่อสร้าง</option>
+          <option>บริหารรายได้</option>
+          <option>บริการลูกค้า</option>
+          <option>สนับสนุน</option>
+          <option>มิเตอร์</option>
+          <option>ปฏิบัติการ</option>
+          <option>คลองตัน</option>
+          <option>กาหลง</option>
+        </select>
+
+        <label for="description">รายละเอียดงาน</label>
+        <textarea id="description" name="description" rows="3" required></textarea>
+
+        <label for="method">วิธีการจัดซื้อจัดจ้าง</label>
+        <select id="method" name="method" required>
+          <option value="">เลือกวิธี</option>
+          <option value="S">วิธีเฉพาะเจาะจง S</option>
+          <option value="L">วิธีคัดเลือก L</option>
+          <option value="B">วิธีประกวดราคา B</option>
+        </select>
+
+        <label for="amount">จำนวนเงิน</label>
+        <input type="text" id="amount" name="amount" placeholder="เช่น 50,000" required>
+
+        <button type="submit">ส่งข้อมูล</button>
+        <div id="docIdResult" style="margin-top: 1rem; font-weight: bold;"></div>
+      </form>
+    </div>
+  </div>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function() {
+    const amountInput = document.getElementById("amount");
+    amountInput.addEventListener("input", function(e) {
+      let value = e.target.value.replace(/[^\d]/g, "");
+      if (value) {
+        e.target.value = parseInt(value, 10).toLocaleString();
+      } else {
+        e.target.value = "";
+      }
+    });
+  });
+</script>
+<script src="app.js"></script>
+</body>
+</html>
